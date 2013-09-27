@@ -8,6 +8,7 @@ import sys
 coninfo = ('127.0.0.1', 'root', 'vislecaina', 'weather')
 basicInfoTableField = ('cityid', 'city', 'city_en', 'date_y', 'week', 'fchh')
 
+
 def go(codes):
 	db = operDB.DBOperation(coninfo)
 	db.deleteTable()
