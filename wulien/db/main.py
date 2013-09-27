@@ -7,7 +7,12 @@ import sys
 
 coninfo = ('127.0.0.1', 'root', 'vislecaina', 'weather')
 basicInfoTableField = ('cityid', 'city', 'city_en', 'date_y', 'week', 'fchh')
-
+temperatureTableField = ('temp1', 'temp2', 'temp3', 'temp4', 'temp5')
+weatherTableField = ('weather1', 'weather2', 'weather3', 'weather4', 'weather5')
+windTableField = ('wind1', 'wind2', 'wind3', 'wind4', 'wind5')
+windLevelTableField = ('fx1', 'fx2', 'fl1', 'fl2', 'fl3', 'fl4', 'fl5', 'fl6')
+otherInfoTableField = ('index', 'index_d', 'index48', 'index48_d', 'index_uv', 'index48_uv', 'index_xc', 
+			'index_tr', 'index_co', 'index_cl', 'index_ls', 'index_ag')
 
 def go(codes):
 	db = operDB.DBOperation(coninfo)
