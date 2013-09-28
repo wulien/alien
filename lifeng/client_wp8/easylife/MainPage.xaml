@@ -37,13 +37,13 @@
          -->
 
          <!--Panorama 控件-->
-        <phone:Panorama Title="我的应用程序">
+        <phone:Panorama Title="生活通">
             <phone:Panorama.Background>
-                <ImageBrush ImageSource="/easylife;component/Assets/PanoramaBackground.png"/>
+                <ImageBrush ImageSource="/easylife;component/Assets/car1.png"/>
             </phone:Panorama.Background>
 
             <!--Panorama 项目一-->
-            <phone:PanoramaItem Header="first item">
+            <phone:PanoramaItem Header="天气">
                 <!--具有文字环绕的单行列表-->
                 <phone:LongListSelector Margin="0,0,-22,0" ItemsSource="{Binding Items}">
                     <phone:LongListSelector.ItemTemplate>
@@ -67,7 +67,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="第二项"
+                                <TextBlock Text="交通"
                                            Style="{StaticResource PanoramaItemHeaderTextStyle}"
                                            Grid.Row="0"/>
                             </Grid>
@@ -89,7 +89,7 @@
             </phone:PanoramaItem>
 
             <!--全景项目三-->
-            <phone:PanoramaItem Header="third item" Orientation="Horizontal">
+            <phone:PanoramaItem Header="超市折扣" Orientation="Horizontal">
                 <!--具有大型图像占位符的双倍宽度的全景-->
                 <Grid>
                     <StackPanel Margin="0,4,16,0" Orientation="Vertical" VerticalAlignment="Top">
