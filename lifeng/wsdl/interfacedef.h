@@ -8,6 +8,10 @@ typedef unsigned char  xsd__byte;
 //gsoap ns service namespace: http://threepepolego/services/weather.wsdl
 //gsoap ns service location: http://localhost:8888
 
+enum WEATHERDEFINE
+{
+	SUN = 1,
+};
 
 struct weatherinfo_current
 {
@@ -18,5 +22,5 @@ struct weatherinfo_current
 	xsd__byte byteWindPower;
 };
 
-xsd__int ns__Request(xsd__int iCityCode,
+xsd__int ns__GetCurrWeatherInfo(xsd__int iCityCode,
 struct weatherinfo_current &stCurrWeatherInfo);
