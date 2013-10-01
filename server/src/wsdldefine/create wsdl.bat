@@ -1,3 +1,3 @@
 @echo off
-..\..\srctools\soapcpp2.exe interfacedef.h
+..\..\srctools\win32_vc9_x86\soapcpp2.exe interfacedef.h
 echo & pause
