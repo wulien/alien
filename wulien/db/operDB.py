@@ -1,7 +1,7 @@
 
 import MySQLdb
 import publicFun
-
+import log
 
 class DBOperation(object):
 	def __init__(self, coninfo = ('127.0.0.1', 'root', 'vislecaina', 'weather')):
@@ -45,7 +45,8 @@ class DBOperation(object):
 		with self.con:
 			cur = self.con.cursor()
 			cur.execute("delete from %s where cityid = \'%s\'" % (table, cityid))
-			print "Delete row in table OK!"
+			strLog = "Delete row in table \'%s\' OK, cityid = %s" % (table, cityid)
+			log.log(strLog)
 
 	def insertData(self, datas, table):
 		with self.con:
@@ -69,7 +70,7 @@ class DBOperation(object):
 				print rowData
 			print "Read database OK!"
 		return rows
-
+		
 	def getYesTempByCityId(self, table, cityid):
 		with self.con:
 			cur = self.con.cursor()
@@ -77,9 +78,12 @@ class DBOperation(object):
 			rows = cur.fetchall()
 			if (0 != len(rows)):
 				row = rows[0]
+				strLog = "Get yesterday temperatur OK, cityid = %s" % cityid
 			else:
+				strLog = "Get yesterday temperatur failed, cityid = %s" % cityid
 				row = (100, 100)
-
+			log.log(strLog)
+			print strLog
 			# return (yesTempLow, yesTempHigh)
 			return row
 
@@ -89,9 +93,13 @@ class DBOperation(object):
 			cur.execute("select yesWeather from %s where cityid = \'%s\'" % (table, cityid))
 			rows = cur.fetchall()
 			if (0 != len(rows)):
+				strLog = "Get yesterday weather OK, cityid = %s" % cityid
 				row = rows[0]
 			else:
+				strLog = "Get yesterday weather failed, cityid  = %s" % cityid
 				row = ()
+			log.log(strLog)
+			print strLog
 		return row
 
 	def getYesterdayWind(self, table, cityid):
@@ -100,16 +108,13 @@ class DBOperation(object):
 			cur.execute("select yesWind from %s where cityid = \'%s\'" % (table, cityid))
 			rows = cur.fetchall()
 			if (0 != len(rows)):
+				strLog = "Get yesterday wind OK, cityid = %s" % cityid
 				row = rows[0]
 			else:
+				strLog = "Get yesterday wind failed, cityid  = %s" % cityid
 				row = ()
+			log.log(strLog)
+			print strLog
 		return row
 
-
-if __name__ == '__main__':
-	coninfo = ['127.0.0.1', 'root', 'vislecaina', 'weather']
-	db = DBOperation(coninfo)
-	table = 'basicinfo'
-	
-	db.insertData(datas, table)
 

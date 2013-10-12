@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 import re
 import operDB
+import log
 weatherStatic = {u'晴': 1, u'多云': 2, u'阴': 3, u'阵雨': 4, u'雷阵雨': 5, u'雷阵雨伴有冰雹': 6, u'雨夹雪': 7, u'小雨': 8,
 		u'中雨': 9, u'大雨': 10, u'暴雨': 11, u'大暴雨': 12, u'特大暴雨': 13, u'阵雪': 14, u'小雪': 15, u'中雪': 16,
 		u'大雪': 17, u'暴雪': 18, u'雾': 19, u'冻雨': 20, u'沙尘暴': 21, u'小雨转中雨': 22, u'中雨转大雨': 23, u'大雨转暴雨': 24,
 		u'暴雨转大暴雨': 25, u'大暴雨转特大暴雨': 26, u'小雪转中雪': 27, u'中雪转大雪': 28, u'大雪转暴雪': 29, u'浮尘': 30, u'扬沙': 31,
-		u'强沙尘暴': 32, u'霾': 33, u'晴转多云': 34, u'多云转阴': 35, u'阴转阵雨': 36, u'阴转小雨': 37}
+		u'强沙尘暴': 32, u'霾': 33, u'晴转多云': 34, u'多云转阴': 35, u'阴转阵雨': 36, u'阴转小雨': 37, u'阴转晴': 38, u'晴转阴': 39}
 windStatic = {u'微风': 1, u'东风3-4级': 2, u'东风3-4级转小于3级': 3, u'东风3-4级转5-6级': 4, u'东风5-6级转3-4级': 5, u'东风5-6级转7-8级': 6,
 		u'东风7-8级转5-6级': 7, u'西风3-4级': 8, u'西风3-4级转小于3级': 9, u'西风3-4级转5-6级': 10, u'西风5-6级转3-4级': 11, u'西风5-6级转7-8级': 12,
-		u'西风7-8级转5-6级': 13, u'南风3-4级': 8, u'南风3-4级转小于3级': 9, u'南风3-4级转5-6级': 10, u'南风5-6级转3-4级': 11, u'南风5-6级转7-8级': 12,
-		u'南风7-8级转5-6级': 13,}
+		u'西风7-8级转5-6级': 13, u'南风3-4级': 14, u'南风3-4级转小于3级': 15, u'南风3-4级转5-6级': 16, u'南风5-6级转3-4级': 17, u'南风5-6级转7-8级': 18,
+		u'南风7-8级转5-6级': 19,}
 dressStatic = {u'炎热': 1, u'热': 2, u'暖': 3, u'舒适': 4, u'温凉': 5, u'气温较低': 6, u'冷': 7, u'温度极低': 8}
 uvStatic = {u'最弱': 1, u'弱': 2, u'中等': 3, u'强': 4, u'最强': 5}
 washCarStatic = {u'适宜': 1, u'较适宜': 2, u'较不宜': 3, u'不宜': 4}
@@ -18,6 +19,13 @@ comfortableStatic = {u'舒适': 1, u'较为舒适': 2, u'不舒适': 3, u'很不
 exerciseStatic = {u'非常适宜': 1, u'适宜': 2, u'较适宜': 3, u'较不宜': 4, u'不宜': 5}
 dryStatic = {u'非常适宜': 1, u'适宜': 2, u'较适宜': 3, u'不太适宜': 4, u'不适宜': 5}
 allergyStatic = {u'极不易发': 1, u'不易发': 2, u'较不易发': 3, u'易发': 4, u'极易发': 5}
+otherinfoStatic = {u'炎热': 1, u'热': 2, u'舒适': 3, u'较舒适': 4, u'较冷': 5, u'冷': 6, u'寒冷': 7, u'温度极低': 8,
+		u'最弱': 9, u'弱': 10, u'中等': 11, u'强': 12, u'最强': 13, u'一般': 14, u'舒适': 15, u'较为舒适': 16, u'不舒适': 17, u'很不舒适': 18, u'极不适应': 19,
+		u'非常适宜': 20, u'适宜': 21, u'不太适宜': 22, u'不适宜': 23, u'极不易发': 24, u'不易发': 25, u'较不易发': 26, u'易发': 27, u'极易发': 28}
+
+windDirectionStatic ={u'东风': 1, u'西风': 2, u'南风': 3, u'北风': 4, u'东北风': 5, u'东南风': 6, u'西北风': 7, u'西南风': 8,
+			u'偏东风': 9, u'偏南风': 10, u'偏西风': 11, u'偏北风': 12}
+
 
 coninfo = ('127.0.0.1', 'root', 'vislecaina', 'weather')
 basicInfoTableField = ('cityid', 'city', 'city_en', 'date_y', 'week', 'fchh')
@@ -27,6 +35,7 @@ windTableField = ('wind1', 'wind2', 'wind3', 'wind4', 'wind5', 'wind6')
 windLevelTableField = ('fx1', 'fx2', 'fl1', 'fl2', 'fl3', 'fl4', 'fl5', 'fl6')
 otherInfoTableField = ('index', 'index48', 'index_uv', 'index48_uv', 'index_xc', 
 			'index_tr', 'index_co', 'index_cl', 'index_ls', 'index_ag')
+currentWeatherTabelField = ('cityid', 'city', 'temp', 'WD', 'WS', 'SD', 'WSE', 'time')
 
 tableFields = (basicInfoTableField, temperatureTableField, weatherTableField, windTableField, otherInfoTableField)
 tables = ('basicinfo', 'temperature', 'weather', 'wind', 'otherinfo')
@@ -34,34 +43,62 @@ tables = ('basicinfo', 'temperature', 'weather', 'wind', 'otherinfo')
 def getFieldById(allInfo):
 	tablesInfo = []
 	cityid = allInfo['cityid']
-	if (len(tableFields) < 6):
-		print "Tables less than expect! Error------"
+	if (len(tableFields) < 5):
+		strLog = "Tables less than expect! Error"
+		log.log(strLog)
+		print strLog
 	basicInfoField = tableFields[0]
 	basicInfoTableValues = []
 	for field in basicInfoField:
-		value = allInfo[field]
+		try:
+			value = allInfo[field]
+		except:
+			value = '100'
+			strLog = "KeyError %s, cityid = %s" % (field, cityid)
+			log.log(strLog)
+			print strLog
 		basicInfoTableValues.append(value)
+	strLog = "Getting table \'%s\' data, cityid = %s" % (tables[0], cityid)
+	log.log(strLog)
+	print strLog
 	basicinfo = convertForShow(basicInfoTableValues)
 	tablesInfo.append(basicinfo)
 	#delete table(basicinfo)
+	strLog = "Deleting table %s, cityid = %s" % (tables[0], cityid)
+	log.log(strLog)
+	print strLog
 	db = operDB.DBOperation()
 	db.deleteRowInTable(tables[0], cityid)
 
 	temperatureField = tableFields[1]
 	#Get yesterday temperature first
+	strLog = 'Getting yesterday temperature'
+	log.log(strLog)
 	row = getYesterdayTemp(db, cityid)
 	temperatureTableValues = []
 	temperatureTableValues.append(cityid)
 	temperatureTableValues.append(row[0])
 	temperatureTableValues.append(row[1])
 	for field in temperatureField:
-		value = allInfo[field].encode('gbk')
+		try:
+			value = allInfo[field].encode('gbk')
+		except:
+			value = '100'
+			strLog = "Error field = %s ,cityid = %s" % (field, cityid)
+			log.log(strLog)
+			print strLog
 		tempHighAndLow = re.split('~', value)
 		if (len(tempHighAndLow) == 2):
 			tempHigh = tempHighAndLow[0][ : -2]
-			tempLow = tempHighAndLow[1][ : -2]
-			temperatureTableValues.append(tempHigh)
-			temperatureTableValues.append(tempLow)
+			tempLow = tempHighAndLow[1][ : -2]	
+		else:
+			tempHigh = 100
+			tempLow = 100
+		temperatureTableValues.append(tempHigh)
+		temperatureTableValues.append(tempLow)
+	strLog = "Getting table \'%s\' data, cityid = %s" % (tables[1], cityid)
+	log.log(strLog)
+	print strLog
 	temperature = convertForShow(temperatureTableValues)
 	tablesInfo.append(temperature)
 
@@ -76,24 +113,36 @@ def getFieldById(allInfo):
 		yesWeather = row[0]
 	weatherTableValues.append(yesWeather)
 	for field in weatherField:
-		value = allInfo[field]
-		print type(value)
-		print value
 		try:
-			value = weatherStatic[value]
-		except KeyError:
-			print value
+			value = allInfo[field]
+			try:
+				value = weatherStatic[value]
+			except KeyError:
+				strLog = "KeyError in weatherStatic ! Can't find value = %s" % value
+				print strLog
+				log.log(strLog)
+				value = 100
+		except:
 			value = 100
+			strLog = "Error field = %s ,cityid = %s" % (field, cityid)
+			log.log(strLog)
+			print strLog
 		weatherTableValues.append(value)
+	strLog = "Getting table \'%s\' data, cityid = %s" % (tables[2], cityid)
+	log.log(strLog)
 	weather = convertForShow(weatherTableValues)
 	tablesInfo.append(weather)
 	#delete table(weather)
+	strLog = "Deleting table %s, cityid = %s" % (tables[2], cityid)
+	log.log(strLog)
 	db.deleteRowInTable(tables[2], cityid)
 
 	windField = tableFields[3]
 	windTableValues = []
 	windTableValues.append(cityid)
 	windTable = tables[3]
+	strLog = 'Getting yesterday wind'
+	log.log(strLog)
 	row = db.getYesterdayWind(windTable, cityid)
 	if (0 == len(row)):
 		yesWind = 100
@@ -101,19 +150,54 @@ def getFieldById(allInfo):
 		yesWind = row[0]
 	windTableValues.append(yesWind)
 	for field in windField:
-		value = allInfo[field]
-		print type(value)
-		print value
 		try:
-			value = windStatic[value]
-		except KeyError:
-			print value
+			value = allInfo[field]
+			try:
+				value = windStatic[value]
+			except KeyError:
+				strLog = "KeyError in windStatic ! Can't find value = %s" % value
+				print strLog
+				log.log(strLog)
+				value = 100
+		except:
 			value = 100
+			strLog = "Error field = %s ,cityid = %s" % (field, cityid)
+			log.log(strLog)
+			print strLog
 		windTableValues.append(value)
+	strLog = "Getting table \'%s\' data, cityid = %s" % (tables[3], cityid)
+	log.log(strLog)
+	print strLog
 	wind = convertForShow(windTableValues)
 	tablesInfo.append(wind)
 	#delete table(weather)
 	db.deleteRowInTable(tables[3], cityid)
+
+	otherinfoField = tableFields[4]
+	otherinfoTableValues = []
+	otherinfoTableValues.append(cityid)
+	for field in otherinfoField:
+		try:
+			value = allInfo[field] 
+			try:
+				value = otherinfoStatic[value]
+			except KeyError:
+				strLog = "KeyError in otherinfoStatic ! Can't find value = %s" % value
+				print strLog
+				log.log(strLog)
+				value = 100
+		except:
+			value = 100
+			strLog = "Error field = %s ,cityid = %s" % (field, cityid)
+			log.log(strLog)
+			print strLog
+		otherinfoTableValues.append(value)
+	strLog = "Getting table \'%s\' data, cityid = %s" % (tables[4], cityid)
+	log.log(strLog)
+	print strLog
+	otherinfo = convertForShow(otherinfoTableValues)
+	tablesInfo.append(otherinfo)
+	db.deleteRowInTable(tables[4], cityid)
 
 	return tablesInfo
 
@@ -122,7 +206,12 @@ def getYesterdayTemp(db, cityid):
 	table = tables[1]
 	yesData = db.getYesTempByCityId(table, cityid)
 	#delete datas of yesterday
+	strLog = "Deleting table \'%s\' data, cityid = %s" % (tables[1], cityid)
+	log.log(strLog)
+	print strLog
 	db.deleteRowInTable(table, cityid)
+	strLog = "Delete OK"
+	log.log(strLog)
 	return yesData
 
 def convertForShow(tableValues):
@@ -138,28 +227,32 @@ def convertForShow(tableValues):
 			tmp += '\'%s\', ' % item
 		i += 1
 	tmp = '(' + tmp + ')'
-
+	strLog = tmp.encode('gbk')
+	log.log(strLog)
 	return tmp
 
-# if __name__ == '__main__':
-# 	c = u''
-# 	c = c.encode('utf-8')
-# 	print c
-# 	print type(c)
-# 	b = []
-# 	b.append(c)
-# 	b.append(c)
-# 	tmp = ''
-# 	i = 0
-# 	while(i < len(b)):
-# 		if len(b) - 1 == i:
-# 			tmp += '%s' % b[i]
-# 		else:
-# 			tmp += '%s, ' % b[i]
-# 		i += 1
-# 	print type(tmp)
-# 	print tmp
-	
-# 	f = open('temp.txt', 'w')
-# 	f.write(tmp)
-# 	f.close()
+def getCurrentTableField(allInfo):
+	currentWeatherTableValues = []
+	cityid = allInfo['cityid']
+	for field in currentWeatherTabelField:
+		try:
+			value = allInfo[field]
+			if 'WD' == field:
+				try:
+					value = windDirectionStatic[value]
+				except KeyError:
+					strLog = "KeyError in windDirectionStatic ! Can't find value = %s, cityid = %s" % (value, cityid)
+					print strLog
+					log.log(strLog)
+					value = 100
+			elif 'WS' == field or 'SD' == field:
+				value = value[ : -1]
+		except:
+			value = 100
+			strLog = "Error field = %s ,cityid = %s" % (field, cityid)
+			log.log(strLog)
+			print strLog
+		currentWeatherTableValues.append(value)
+	currentweather = convertForShow(currentWeatherTableValues)
+
+	return currentweather

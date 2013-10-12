@@ -1,24 +1,33 @@
 import requests
 import json
 import urllib2
+import log
 
 class weatherScrap(object):
 	def __init__(self, url):
 		self.url = url
-		print "-----The url you input is \"%s\"-----" % self.url
+		strLog = "The url you input is \"%s\"" % self.url
+		log.log(strLog)
 
 	def getWeatherInfo(self):
-		try:
-			weatherReq = urllib2.urlopen(self.url)
-		except:
-			print "Error occur getting %s datas" % self.url
+		for i in range(5):
+			try:
+				weatherReq = urllib2.urlopen(self.url)
+				break;
+			except:
+				strLog = "Error occur getting %s datas" % self.url
+				log.log(strLog)
+				strLog = "Trying %d times" % i
+				log.log(strLog)
 		try:
 			allInfo = json.load(weatherReq)
 			allInfo = allInfo['weatherinfo']
 		except:
-			print "Parse json error!"
+			strLog = "Parse json error!"
+			log.log(strLog)
 			allInfo = []
-		print "-----Get weather datas OK!-----"
+		strLog = "Get weather datas OK"
+		log.log(strLog)
 		return allInfo
 
 	def getInfoById(self, id):
