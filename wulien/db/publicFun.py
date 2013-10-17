@@ -6,7 +6,8 @@ weatherStatic = {u'晴': 1, u'多云': 2, u'阴': 3, u'阵雨': 4, u'雷阵雨':
 		u'中雨': 9, u'大雨': 10, u'暴雨': 11, u'大暴雨': 12, u'特大暴雨': 13, u'阵雪': 14, u'小雪': 15, u'中雪': 16,
 		u'大雪': 17, u'暴雪': 18, u'雾': 19, u'冻雨': 20, u'沙尘暴': 21, u'小雨转中雨': 22, u'中雨转大雨': 23, u'大雨转暴雨': 24,
 		u'暴雨转大暴雨': 25, u'大暴雨转特大暴雨': 26, u'小雪转中雪': 27, u'中雪转大雪': 28, u'大雪转暴雪': 29, u'浮尘': 30, u'扬沙': 31,
-		u'强沙尘暴': 32, u'霾': 33, u'晴转多云': 34, u'多云转阴': 35, u'阴转阵雨': 36, u'阴转小雨': 37, u'阴转晴': 38, u'晴转阴': 39}
+		u'强沙尘暴': 32, u'霾': 33, u'晴转多云': 34, u'多云转阴': 35, u'阴转阵雨': 36, u'阴转小雨': 37, u'阴转晴': 38, u'晴转阴': 39,
+		u'阴转多云': 40}
 windStatic = {u'微风': 1, u'东风3-4级': 2, u'东风3-4级转小于3级': 3, u'东风3-4级转5-6级': 4, u'东风5-6级转3-4级': 5, u'东风5-6级转7-8级': 6,
 		u'东风7-8级转5-6级': 7, u'西风3-4级': 8, u'西风3-4级转小于3级': 9, u'西风3-4级转5-6级': 10, u'西风5-6级转3-4级': 11, u'西风5-6级转7-8级': 12,
 		u'西风7-8级转5-6级': 13, u'南风3-4级': 14, u'南风3-4级转小于3级': 15, u'南风3-4级转5-6级': 16, u'南风5-6级转3-4级': 17, u'南风5-6级转7-8级': 18,
@@ -25,6 +26,8 @@ otherinfoStatic = {u'炎热': 1, u'热': 2, u'舒适': 3, u'较舒适': 4, u'较
 
 windDirectionStatic ={u'东风': 1, u'西风': 2, u'南风': 3, u'北风': 4, u'东北风': 5, u'东南风': 6, u'西北风': 7, u'西南风': 8,
 			u'偏东风': 9, u'偏南风': 10, u'偏西风': 11, u'偏北风': 12}
+
+weekStatic = {u'星期一': 1, u'星期二': 2, u'星期三': 3, u'星期四': 4, u'星期五': 5, u'星期六': 6, u'星期日': 7}
 
 
 coninfo = ('127.0.0.1', 'root', 'vislecaina', 'weather')
@@ -52,6 +55,15 @@ def getFieldById(allInfo):
 	for field in basicInfoField:
 		try:
 			value = allInfo[field]
+			if ('week' == field):
+				try:
+					value = weekStatic[value]
+				except:
+					tempStr = value.encode('gbk')
+					strLog = "Error in basicinfo ! Can't find value = %s" % tempStr
+					print strLog
+					log.log(strLog)
+					value = 100
 		except:
 			value = '100'
 			strLog = "KeyError %s, cityid = %s" % (field, cityid)
@@ -118,7 +130,8 @@ def getFieldById(allInfo):
 			try:
 				value = weatherStatic[value]
 			except KeyError:
-				strLog = "KeyError in weatherStatic ! Can't find value = %s" % value
+				tempStr = value.encode('gbk')
+				strLog = "KeyError in weatherStatic ! Can't find value = %s" % tempStr
 				print strLog
 				log.log(strLog)
 				value = 100
