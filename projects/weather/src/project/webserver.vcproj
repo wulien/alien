@@ -63,7 +63,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="boost_thread-vc90-mt-gdp.lib boost_date_time-vc90-mt-gdp.lib"
-				OutputFile="..\..\bin\$(ProjectName).exe"
+				OutputFile="..\..\server\bin\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\thirdparty\win32_vc9_x86\lib"
 				GenerateDebugInformation="true"
