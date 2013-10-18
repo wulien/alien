@@ -65,7 +65,7 @@
 				AdditionalDependencies="boost_thread-vc90-mt-gdp.lib boost_date_time-vc90-mt-gdp.lib"
 				OutputFile="..\..\bin\$(ProjectName).exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\ext\lib\win32_vc9_x86"
+				AdditionalLibraryDirectories="..\..\thirdparty\win32_vc9_x86\lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -176,10 +176,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\webserver\webserverimpl.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\webserver\soapC.cpp"
 				>
 			</File>
@@ -199,29 +195,16 @@
 				RelativePath="..\webserver\webserver.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\webserver\webserverimpl.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath="..\webserver\webserverdef.h"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="rem IncrediBuild_RunFirst&#x0D;&#x0A;soapcpp2 -d ..\webserver -S &quot;$(InputPath)&quot;&#x0D;&#x0A;"
-						Outputs="soapStub.h soapH.h soapC.cpp soapServer.cpp"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\webserver\webserverimp.h"
-				>
-			</File>
 			<File
 				RelativePath="..\webserver\soapH.h"
 				>
@@ -240,6 +223,23 @@
 			</File>
 			<File
 				RelativePath="..\webserver\weatherreader.nsmap"
+				>
+			</File>
+			<File
+				RelativePath="..\webserver\webserverdef.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="rem IncrediBuild_RunFirst&#x0D;&#x0A;soapcpp2 -d ..\webserver -S &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						Outputs="soapStub.h soapH.h soapC.cpp soapServer.cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\webserver\webserverimp.h"
 				>
 			</File>
 		</Filter>
