@@ -6,6 +6,8 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c4fToolkit="clr-namespace:Coding4Fun.Phone.Controls;assembly=Coding4Fun.Phone.Controls" 
+    xmlns:c4fToolkitBinding="clr-namespace:Coding4Fun.Phone.Controls.Binding;assembly=Coding4Fun.Phone.Controls" 
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -40,15 +42,78 @@
          -->
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="我的应用程序" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
-            <TextBlock Text="页面名称" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="0,0,0,0">
+            <TextBlock x:Name="cname" Text="中文名称" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
+            <TextBlock x:Name="ename" Text="pingying" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,362,12,0">
+            <Canvas Margin="0,-56,0,0">
+                <Canvas.Resources>
+                    <Storyboard x:Name="storyBoard_prefclick">
+                        <DoubleAnimation Storyboard.TargetName="planeProjection"
+                                 Storyboard.TargetProperty="RotationX"
+                                 Duration="00:00:0.5"        
+                                 From="0"  To="180"/>
+                    </Storyboard>
+                    <Storyboard x:Name="storyBoard_detailclick">
+                        <DoubleAnimation Storyboard.TargetName="planeProjection"
+                                 Storyboard.TargetProperty="RotationX"
+                                 Duration="00:00:0.5" 
+                                 From="0" To="-180"/>
+                    </Storyboard>
+                </Canvas.Resources>
+                <c4fToolkit:Tile x:Name="page_day_detail"  Opacity="0.5"  Margin="0" Background="#FF666666" Width="242" Height="242" Click="DetailInfo_Click" VerticalAlignment="Top">
+                    <c4fToolkit:Tile.Projection>
+                        <PlaneProjection x:Name="planeProjection"/>
+                    </c4fToolkit:Tile.Projection>
+                </c4fToolkit:Tile>
 
+                <Grid Height="242" Width="242">
+                    <Image x:Name="detail_icon" Source="Assets/Resources/Images/WeatherSmall/bNight.1.png"  HorizontalAlignment="Left" Height="100" Margin="67,60,0,0" VerticalAlignment="Top" Width="100"/>
+                    <TextBlock x:Name="detail_weekday" HorizontalAlignment="Right" Margin="190,27,0,0" TextWrapping="Wrap" Text="今天" VerticalAlignment="Top" Width="52"/>
+                    <TextBlock x:Name="detail_tempretuer" HorizontalAlignment="Left" Margin="0,161,0,0" TextWrapping="Wrap" Text="最低温12" VerticalAlignment="Top" RenderTransformOrigin="-1.125,0.444" Width="106"/>
+                    <TextBlock x:Name="detail_data" HorizontalAlignment="Right" Margin="67,0,0,0" TextWrapping="Wrap" Text="2013年10月17日" VerticalAlignment="Top" RenderTransformOrigin="-1.125,0.444" Width="175"/>
+                    <TextBlock x:Name="detail_wind" HorizontalAlignment="Left" Margin="0,215,0,0" TextWrapping="Wrap" Text="微风" VerticalAlignment="Top" RenderTransformOrigin="-1.125,0.444" Width="106"/>
+                    <TextBlock x:Name="detail_weather" HorizontalAlignment="Left" Margin="0,188,0,0" TextWrapping="Wrap" Text="多云" VerticalAlignment="Top" RenderTransformOrigin="-1.125,0.444" Width="106"/>
+                </Grid>
+
+                <c4fToolkit:Tile x:Name="page_day1" Opacity="0.5" Margin="0" Background="#FF666666" Width="120" Height="120" Click="Income_Tile_Click" VerticalAlignment="Top">
+                </c4fToolkit:Tile>
+                <Grid>
+                    <Image x:Name="page_day1_icon" Source="Assets/Resources/Images/WeatherSmall/bNight.1.png"  HorizontalAlignment="Left" Height="50" Margin="70,0,0,0" VerticalAlignment="Top" Width="50"/>
+                    <TextBlock x:Name="day1_weekday" HorizontalAlignment="Left" Margin="10,43,0,0" TextWrapping="Wrap" Text="今天" VerticalAlignment="Top" Width="52"/>
+                    <TextBlock x:Name="day1_tempretuer" HorizontalAlignment="Left" Margin="10,83,0,0" TextWrapping="Wrap" Text="12/18" VerticalAlignment="Top" RenderTransformOrigin="-1.125,0.444" Width="106"/>
+                </Grid>
+
+                <c4fToolkit:Tile x:Name="page_day2" Opacity="0.5" Margin="122,0" Background="#FF666666" Width="120" Height="120" Click="Income_Tile_Click" VerticalAlignment="Top">
+                </c4fToolkit:Tile>
+                <Grid Margin="122,0">
+                    <Image x:Name="page_day2_icon" Source="Assets/Resources/Images/WeatherSmall/bNight.1.png"  HorizontalAlignment="Left" Height="50" Margin="70,0,0,0" VerticalAlignment="Top" Width="50"/>
+                    <TextBlock x:Name="day2_weekday" HorizontalAlignment="Left" Margin="10,43,0,0" TextWrapping="Wrap" Text="今天" VerticalAlignment="Top" Width="52"/>
+                    <TextBlock x:Name="day2_tempretuer" HorizontalAlignment="Left" Margin="10,83,0,0" TextWrapping="Wrap" Text="12/18" VerticalAlignment="Top" RenderTransformOrigin="-1.125,0.444" Width="106"/>
+                </Grid>
+
+                <c4fToolkit:Tile x:Name="page_day3" Opacity="0.5" Margin="0,122" Background="#FF666666" Width="120" Height="120" Click="Income_Tile_Click" VerticalAlignment="Top">
+                </c4fToolkit:Tile>
+                <Grid Margin="0,122">
+                    <Image x:Name="page_day3_icon" Source="Assets/Resources/Images/WeatherSmall/bNight.1.png"  HorizontalAlignment="Left" Height="50" Margin="70,0,0,0" VerticalAlignment="Top" Width="50"/>
+                    <TextBlock x:Name="day3_weekday" HorizontalAlignment="Left" Margin="10,43,0,0" TextWrapping="Wrap" Text="今天" VerticalAlignment="Top" Width="52"/>
+                    <TextBlock x:Name="day3_tempretuer" HorizontalAlignment="Left" Margin="10,83,0,0" TextWrapping="Wrap" Text="12/18" VerticalAlignment="Top" RenderTransformOrigin="-1.125,0.444" Width="106"/>
+                </Grid>
+
+                <c4fToolkit:Tile x:Name="page_day4" Opacity="0.5" Margin="122,122" Background="#FF666666" Width="120" Height="120" Click="Income_Tile_Click" VerticalAlignment="Top">
+                </c4fToolkit:Tile>
+                <Grid Margin="122,122">
+                    <Image x:Name="page_day4_icon" Source="Assets/Resources/Images/WeatherSmall/bNight.1.png"  HorizontalAlignment="Left" Height="50" Margin="70,0,0,0" VerticalAlignment="Top" Width="50"/>
+                    <TextBlock x:Name="day4_weekday" HorizontalAlignment="Left" Margin="10,43,0,0" TextWrapping="Wrap" Text="今天" VerticalAlignment="Top" Width="52"/>
+                    <TextBlock x:Name="day4_tempretuer" HorizontalAlignment="Left" Margin="10,83,0,0" TextWrapping="Wrap" Text="12/18" VerticalAlignment="Top" RenderTransformOrigin="-1.125,0.444" Width="106"/>
+                </Grid>
+
+            </Canvas>
         </Grid>
+
 
         <!--取消注释，以显示对齐网格，从而帮助确保
             控件在公用边界上对齐。图像在系统栏中显示时的
