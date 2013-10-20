@@ -16,3 +16,6 @@ E:\work files\XXXX\versioncontrol\projects\weather\client\wp8\weatherreport\obj\
 E:\work files\XXXX\versioncontrol\projects\weather\client\wp8\weatherreport\obj\Debug\weatherreport.dll
 E:\work files\XXXX\versioncontrol\projects\weather\client\wp8\weatherreport\obj\Debug\weatherreport.pdb
 E:\work files\XXXX\versioncontrol\projects\weather\client\wp8\weatherreport\obj\Debug\XapCacheFile.xml
+E:\work files\XXXX\versioncontrol\projects\weather\client\wp8\weatherreport\Bin\Debug\Coding4Fun.Phone.Controls.dll
+E:\work files\XXXX\versioncontrol\projects\weather\client\wp8\weatherreport\Bin\Debug\Coding4Fun.Phone.Controls.Toolkit.dll
+E:\work files\XXXX\versioncontrol\projects\weather\client\wp8\weatherreport\obj\Debug\weatherreport.csprojResolveAssemblyReference.cache

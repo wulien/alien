@@ -153,13 +153,13 @@ namespace weatherreport
         private void SetBackGround()
         {
             BitmapImage oBitmapBack;
-            oBitmapBack = new BitmapImage(new Uri("/weatherreader;component/Assets/Resources/WeatherAnimation/sunnyWBG.jpg", UriKind.Relative));
+            oBitmapBack = new BitmapImage(new Uri("/Assets/Resources/WeatherAnimation/sunnyWBG.jpg", UriKind.Relative));
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = oBitmapBack;
             imageBrush.Stretch = System.Windows.Media.Stretch.UniformToFill;
             this.LayoutRoot.Background = imageBrush;
 
-            page_day1_icon.Source = new BitmapImage(new Uri("/weatherreader;component/Assets/Resources/Images/WeatherSmall/bNight.2.png", UriKind.Relative));
+            page_day1_icon.Source = new BitmapImage(new Uri("/Assets/Resources/Images/WeatherSmall/bNight.2.png", UriKind.Relative));
         }
 
         // 用于生成本地化 ApplicationBar 的示例代码
