@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webserver", "webserver.vcproj", "{074B0094-B367-45A6-8544-61BA77339000}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{074B0094-B367-45A6-8544-61BA77339000}.Debug|Win32.ActiveCfg = Debug|Win32
+		{074B0094-B367-45A6-8544-61BA77339000}.Debug|Win32.Build.0 = Debug|Win32
+		{074B0094-B367-45A6-8544-61BA77339000}.Release|Win32.ActiveCfg = Release|Win32
+		{074B0094-B367-45A6-8544-61BA77339000}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
